@@ -1,8 +1,12 @@
 import React from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Scene, Router, Actions } from 'react-native-router-flux';
 
 import LoginForm from './components/loginForm';
 import EmployeeList from './components/EmployeeList';
+import EmployeeForm from './components/EmployeeForm';
+
+
 const Routercomponent = () => {
     return(
         <Router>
@@ -13,10 +17,18 @@ const Routercomponent = () => {
 
                 <Scene key='main'>
                     <Scene 
-                        onRight = { () => { console.log('right!!!!!') }}
+                        renderRightButton={() => (
+                            <View >
+                            <TouchableOpacity onPress={() => { Actions.employeeForm() }}>
+                                <Text>Add</Text>
+                              </TouchableOpacity>
+                            </View>
+                          )}
                         key='employeeList' 
                         component={ EmployeeList } 
                         title='Employee List' />
+
+                    <Scene key="employeeForm" title="Employee Form" component={ EmployeeForm } />
                 </Scene>
             </Scene>
         </Router>
