@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { Picker } from 'react-native';
+import { Picker, Text } from 'react-native';
 import { connect } from 'react-redux';
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeCreate } from '../actions';
 import { Card, CardSection, Input, Button } from './commons';
 
 class EmployeeForm extends Component{
+    onButtonPress(){
+        const { name, phone, shift } = this.props;
+
+        this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+    }
     render(){
         return(
             <Card>
@@ -20,10 +25,12 @@ class EmployeeForm extends Component{
                     />
                 </CardSection>
 
-                <CardSection>
+                <CardSection >
+                    <Text style={ style.pickerTextStyle} >Shift</Text>
                     <Picker
                         selectedValue={this.props.shift}
                         onValueChange={value => this.props.employeeUpdate({prop: 'shift', value})}
+                        style={{flex:1}}
                     >
                         <Picker.Item label='Monday' value='Monday' />
                         <Picker.Item label='Tuesday' value='Tuesday' />
@@ -36,7 +43,7 @@ class EmployeeForm extends Component{
                 </CardSection>
 
                 <CardSection>
-                    <Button>
+                    <Button onPress={this.onButtonPress.bind(this)}>
                         Save
                     </Button>
                 </CardSection>
@@ -44,11 +51,16 @@ class EmployeeForm extends Component{
         )
     }
 }
-
+const style = {
+    pickerTextStyle: {
+        fontSize: 18,
+        paddingLeft: 20
+    }
+}
 const mapToStateProps = (state) => {
     const { name, phone, shift } = state.employeeForm;
 
     return { name, phone, shift };
 }
 
-export default connect(null, { employeeUpdate })(EmployeeForm);
+export default connect(mapToStateProps, { employeeUpdate, employeeCreate })(EmployeeForm);
