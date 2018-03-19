@@ -7,9 +7,9 @@ const INITIAL_STATE = {};
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case EMPLOYEE_FETCH_SUCCESS:
-            console.log(action);
-            return action.payload;
+            console.log('reducer ',action.employees);
+            return action.employees;
         default:
-            return INITIAL_STATE;
+            return state;
     }
 }

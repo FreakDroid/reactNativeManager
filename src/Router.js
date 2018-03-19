@@ -4,7 +4,8 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 
 import LoginForm from './components/loginForm';
 import EmployeeList from './components/EmployeeList';
-import EmployeeForm from './components/EmployeeForm';
+import EmployeeEdit from './components/EmployeeEdit';
+import EmployeeCreate from './components/EmployeeCreate';
 
 
 const Routercomponent = () => {
@@ -19,7 +20,7 @@ const Routercomponent = () => {
                     <Scene 
                         renderRightButton={() => (
                             <View >
-                            <TouchableOpacity onPress={() => { Actions.employeeForm() }}>
+                            <TouchableOpacity onPress={() => { Actions.employeeCreate() }}>
                                 <Text>Add</Text>
                               </TouchableOpacity>
                             </View>
@@ -28,7 +29,8 @@ const Routercomponent = () => {
                         component={ EmployeeList } 
                         title='Employee List' />
 
-                    <Scene key="employeeForm" title="Employee Form" component={ EmployeeForm } />
+                    <Scene key="employeeCreate" title="Employee Form" component={ EmployeeCreate } />
+                    <Scene key="employeeEdit" title="Employee Form" component={ EmployeeEdit } />
                 </Scene>
             </Scene>
         </Router>
